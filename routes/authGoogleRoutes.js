@@ -11,9 +11,18 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/' }),
     (req,res)=>{
-        res.redirect('/profile')
+        res.redirect('http://localhost:5173/profile')
     }
 )
+
+// Ruta para obtener los datos del usuario autenticado
+router.get('/auth/user', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.json(req.user); // Enviar los datos del usuario si está autenticado
+    } else {
+        res.status(401).json({ message: 'Usuario no autenticado' });
+    }
+});
 
 
 router.get('/profile',(req,res)=>{

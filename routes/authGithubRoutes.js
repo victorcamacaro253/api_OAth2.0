@@ -6,10 +6,9 @@ const router  = Router();
 
 router.get('/auth/github',passport.authenticate('github',{scope:['user: email']}))
 
-router.get('/auth/github/callback',
-    passport.authenticate('github',{failureRedirect:'/'}),
+router.get('/auth/github/callback',passport.authenticate('github',{failureRedirect:'/'}),
     (req,res)=>{
-        res.redirect('/profile')
+        res.redirect('http://localhost:5173/profile')
     }
 )
 

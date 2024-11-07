@@ -9,7 +9,7 @@ router.get('/auth/facebook',passport.authenticate('facebook',{scope:['email']}))
 //Ruta de callbakc para la autenticacion
 router.get('/auth/facebook/callback',passport.authenticate('facebook',{failureRedirect:'/login'}),
 (req,res) => {
-    res.redirect('/profile')
+    res.redirect('http://localhost:5173/profile')
 }
 
 );
