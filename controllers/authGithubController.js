@@ -7,12 +7,12 @@ passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: 'http://localhost:3009/auth/github/callback',
-    scope: ['user:email'], // Asegúrate de incluir el alcance aquí
+    scope: ['user: email '], // Asegúrate de incluir el alcance aquí
 
   },  
   async (accessToken, refreshToken, profile, done) => {
     try {
-      let user = await UserModel.findUserByGithubId(profile.id);
+      let user = await User.findUserByGithubId(profile.id);
 console.log(profile.email)
       if (user) {
         return done(null, user); // Usuario existe, retorna el usuario
