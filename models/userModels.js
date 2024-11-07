@@ -73,6 +73,10 @@ class User{
         return rows;
     }
 
+    static async findByEmail(email) {
+        const results = await _query('SELECT * FROM usuario WHERE correo = ?', [email]);
+        return results;
+    }
 
 }
 
