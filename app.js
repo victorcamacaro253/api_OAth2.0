@@ -9,6 +9,7 @@ import './controllers/authGoogleController.js';  // Asegúrate de que se configu
 import  './controllers/authFacebookController.js';  // Asegúrate de que se configure passport
 import  './controllers/authTwitterController.js'; 
 import   './controllers/authGithubController.js'; 
+import  './controllers/loginController.js'; // Asegúrate de que se configure passport
 
 
 
@@ -27,7 +28,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session())
 
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:5173', // Allow only this origin
+  credentials: true // Allow credentials (cookies, authorization headers, etc.)
+}));
+
 
 app.use(morgan('dev'));  // 'dev' es para formato de desarrollo
 
@@ -38,6 +43,19 @@ app.use(cookieParser());
 app.use(json())
 
 app.use(routes)
+
+
+// Middleware para manejar rutas no definidas (404)
+app.use((req, res, next) => {
+    res.status(404).json({ message: 'Ruta no encontrada' });
+  });
+  
+  // Middleware para manejar errores generales
+  app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Ocurrió un error en el servidor' });
+  });
+  
 
 
 const PORT = process.env.PORT ?? 3009
