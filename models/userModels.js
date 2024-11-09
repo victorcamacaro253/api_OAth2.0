@@ -78,6 +78,24 @@ class User{
         return results;
     }
 
+
+    static async findByCedula(cedula){
+        const results = await _query('SELECT * FROM usuario WHERE cedula = ?', [cedula]);
+        return results.length > 0
+    }
+
+    static async addMultipleUsers(users){
+        const queries= users.map(user=>{
+            const {name,apellido,cedula,email,password,rol,imagen} = user;
+            return _query('INSERT INTO usuario (nombre, apellido, cedula, correo, contraseña,rol,imagen) VALUES (?, ?, ?, ?, ?,?,?)',
+                [name,apellido,cedula,email,password,rol,imagen]
+            )
+        })
+
+        const result = await Promise.all(queries)
+        return result
+    }
+
 }
 
 export default User
