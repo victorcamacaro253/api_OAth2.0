@@ -15,7 +15,7 @@ passport.use(new LocalStrategy({
         if (!user) {
             return done(null, false, { message: 'Invalid email or password' });
         }
-
+console.log(password,email)
         const isMatch = await compare(password, user.contraseña); // Ensure 'contraseña' is the hashed password field
         if (!isMatch) {
             return done(null, false, { message: 'Invalid email or password' });
