@@ -56,7 +56,7 @@ class User{
     }
 
    static async findUserByFacebookId(facebookId) {
-        const query = 'SELECT * FROM usuario WHERE google_id = ?';
+        const query = 'SELECT * FROM usuario WHERE facebook_id = ?';
         const [rows] = await _query(query, [facebookId]);
         return rows;
     }
